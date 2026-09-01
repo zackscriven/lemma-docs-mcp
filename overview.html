@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lemma_docs_mcp — PracticeOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --os-ink:#1C1523; --os-surface:#241B2E; --os-plum:#554861; --os-deep-plum:#3A3044;
+    --os-iris:#A78BC8; --os-iris-bright:#C7B5E3; --os-peach:#EFCB9D;
+    --os-text:#F2EDF7; --os-text-soft:rgba(242,237,247,.64);
+    --os-hairline:rgba(167,139,200,.22);
+    --font-body:'Nunito',system-ui,sans-serif;
+    --font-mono:'Spline Sans Mono',ui-monospace,monospace;
+    --r-sm:6px; --r-md:10px; --r-lg:16px; --r-xl:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--os-ink);color:var(--os-text);font-family:var(--font-body);font-weight:600;line-height:1.55;padding:48px 24px 96px}
+  .wrap{max-width:1080px;margin:0 auto}
+  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--os-iris)}
+  header{margin-bottom:40px}
+  .brandline{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .oschip{display:inline-flex;align-items:center;font-weight:800;font-size:18px}
+  .oschip .p{color:var(--os-text)}
+  .oschip .os{margin-left:6px;background:var(--os-plum);border:2px solid var(--os-peach);border-radius:8px;padding:1px 8px;color:#fff;font-size:15px}
+  .brandline .tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;color:var(--os-text-soft)}
+  h1{font-weight:800;font-size:clamp(30px,5vw,44px);line-height:1.12;margin:10px 0 14px}
+  h1 .mono{font-family:var(--font-mono);font-weight:500;color:var(--os-iris)}
+  .lede{max-width:64ch;color:var(--os-text-soft);font-size:17px}
+  .statusrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .pill{font-family:var(--font-mono);font-size:12px;padding:5px 12px;border-radius:999px;border:1px solid var(--os-hairline);color:var(--os-text-soft)}
+  .pill.ok{color:var(--os-iris-bright);border-color:rgba(167,139,200,.45)}
+  .pill.warn{color:var(--os-peach);border-color:rgba(239,203,157,.45)}
+  h2{font-weight:800;font-size:22px;margin:0 0 6px}
+  section{margin-top:44px}
+  .sub{color:var(--os-text-soft);margin-bottom:18px;max-width:70ch}
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .card{background:var(--os-surface);border:1px solid var(--os-hairline);border-radius:var(--r-lg);padding:20px 22px}
+  .card.accent{border-top:2px solid var(--os-peach)}
+  .metric{font-family:var(--font-mono);font-size:34px;font-weight:600;color:var(--os-iris)}
+  .metric-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--os-text-soft);margin-top:4px}
+  .bar{height:8px;border-radius:999px;background:var(--os-deep-plum);overflow:hidden;margin-top:10px}
+  .bar i{display:block;height:100%;background:var(--os-iris)}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px}
+  .flow .node{flex:1 1 200px;background:var(--os-surface);border:1px solid var(--os-hairline);border-radius:var(--r-md);padding:14px 16px}
+  .flow .node b{display:block;font-size:14px}
+  .flow .node span{font-family:var(--font-mono);font-size:11.5px;color:var(--os-text-soft)}
+  .flow .arrow{align-self:center;color:var(--os-iris);font-size:20px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--os-text-soft);text-align:left;padding:8px 12px;border-bottom:1px solid var(--os-hairline)}
+  td{padding:10px 12px;border-bottom:1px solid var(--os-hairline);vertical-align:top}
+  td:first-child{font-family:var(--font-mono);color:var(--os-iris-bright);white-space:nowrap}
+  code,pre{font-family:var(--font-mono);font-size:13px}
+  pre{background:#150F1B;border:1px solid var(--os-hairline);border-radius:var(--r-md);padding:16px 18px;overflow-x:auto;color:var(--os-text)}
+  pre .c{color:var(--os-text-soft)}
+  ul.notes{list-style:none}
+  ul.notes li{padding:9px 0 9px 20px;border-bottom:1px solid var(--os-hairline);position:relative;color:var(--os-text-soft);font-size:15px}
+  ul.notes li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:8px;border-radius:2px;background:var(--os-peach)}
+  ul.notes li b{color:var(--os-text)}
+  .tablewrap{overflow-x:auto}
+  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--os-hairline);font-family:var(--font-mono);font-size:11.5px;color:var(--os-text-soft);letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brandline">
+    <span class="oschip"><span class="p">Practice</span><span class="os">OS</span></span>
+    <span class="tag">THE OPERATING LAYER · MCP RETRIEVAL SERVICE</span>
+  </div>
+  <div class="kicker">Server overview · built 2026-08-26</div>
+  <h1><span class="mono">lemma_docs_mcp</span><br>Lemma practice-banking docs, indexed for agents</h1>
+  <p class="lede">A local, read-only Model Context Protocol server that indexes the Lemma (getlemma.com) documentation — healthcare-practice banking: entity accounts, deposit bonuses, fixed fee loans, cash sweeps, and MSO-PC compliant banking guardrails — and serves ranked context search + exact chunk retrieval to any MCP client. It never calls live Lemma or banking APIs, and never redistributes Lemma content — corpus stays local, code ships alone.</p>
+  <div class="statusrow">
+    <span class="pill ok">35/35 fixture assertions</span>
+    <span class="pill ok">17/17 stdio smoke checks</span>
+    <span class="pill">stdio · TypeScript · @modelcontextprotocol/sdk</span>
+    <span class="pill">read-only · no credentials</span>
+    <span class="pill warn">partial corpus — 8 of Lemma's docs pages</span>
+  </div>
+</header>
+
+<section>
+  <h2>Corpus at a glance</h2>
+  <p class="sub">Snapshot downloaded 2026-08-26 — <b>100% of what Lemma exposes via its <code>.md</code> export endpoint</b> (8 pages, ~54&nbsp;KB), stored at <code>PPC/Product/PracticeOS/Lemma/docs/</code>. Indexed lazily in memory on first tool call.</p>
+  <div class="grid g3">
+    <div class="card accent"><div class="metric">8</div><div class="metric-label">documents</div></div>
+    <div class="card accent"><div class="metric">61</div><div class="metric-label">indexed chunks</div></div>
+    <div class="card accent"><div class="metric">3</div><div class="metric-label">routing namespaces</div></div>
+  </div>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card">
+      <div class="metric" style="font-size:22px">guides</div>
+      <div class="metric-label">34 chunks · 56%</div>
+      <div class="bar"><i style="width:56%"></i></div>
+      <p class="sub" style="margin:10px 0 0;font-size:13.5px">Deposit bonuses, fixed fee loans, MSO-PC compliance guardrails, collaboration, owning multiple entities.</p>
+    </div>
+    <div class="card">
+      <div class="metric" style="font-size:22px">product-updates</div>
+      <div class="metric-label">19 chunks · 31%</div>
+      <div class="bar"><i style="width:31%"></i></div>
+      <p class="sub" style="margin:10px 0 0;font-size:13.5px">Weekly changelog and the roadmap (unsupported features + workarounds — Zelle, credit cards, lending expansion).</p>
+    </div>
+    <div class="card">
+      <div class="metric" style="font-size:22px">getting-started</div>
+      <div class="metric-label">8 chunks · 13%</div>
+      <div class="bar"><i style="width:13%"></i></div>
+      <p class="sub" style="margin:10px 0 0;font-size:13.5px">Quickstart — sign-up, KYB onboarding (EIN, control person, beneficial owners), approval, first cards.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What's not in the corpus</h2>
+  <p class="sub">Lemma's docs platform only exposes 8 pages as markdown. These sections exist on getlemma.com but are <b>not indexed</b> — the tools say so instead of guessing: banking operations (accounts, cards, transactions, checkbooks, move money, external accounts, cash sweeps detail, mobile check deposit), insurance &amp; billing (lockbox, EOB processing, reconciliation, patient refunds, EFT re-enrollment), invoicing, team management &amp; approval rules, and the full API reference (auth, webhooks, transfers, ACH). Expansion paths: request an official export from Lemma, or add a scraping/browser-crawl layer — see NOTICE.md.</p>
+</section>
+
+<section>
+  <h2>How a query flows</h2>
+  <div class="flow" style="margin-top:16px">
+    <div class="node"><b>Agent query</b><span>"how does the deposit bonus accrue?"</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>Namespace router</b><span>keyword scoring → getting-started / guides / product-updates (or explicit)</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>Ranked search</b><span>token + path match · Lemma synonym expansion (interest↔deposit bonus, cpom→mso-pc, practice↔entity)</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>Compact response</b><span>excerpts + ids + pagination · 25k char cap with actionable truncation</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Tool contracts</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Tool</th><th>Purpose</th><th>Key parameters</th></tr>
+    <tr>
+      <td>lemma_docs_context</td>
+      <td>Ranked excerpt search for a question or task. Routes to a namespace, returns compact chunks with source paths, follow-up hints, and paging.</td>
+      <td><code>query</code> · <code>namespace</code> (auto default) · <code>intent</code> (answer / build_context / source_map) · <code>max_chunks</code> 1–12 · <code>offset</code> · <code>response_format</code></td>
+    </tr>
+    <tr>
+      <td>lemma_docs_get</td>
+      <td>Full text of specific chunks by id, or every chunk of one document by path. The expansion step after search — not a browser.</td>
+      <td><code>ids</code> (≤8) · <code>path</code> · <code>response_format</code></td>
+    </tr>
+  </table></div>
+  <p class="sub" style="margin-top:12px">Both tools declare <code>readOnlyHint</code>, <code>idempotentHint</code>, <code>openWorldHint:false</code> and attach SDK-validated structured content alongside markdown.</p>
+</section>
+
+<section>
+  <h2>Register in Claude Desktop / Cowork</h2>
+  <pre><span class="c">// ~/Library/Application Support/Claude/claude_desktop_config.json → mcpServers</span>
+"lemma-docs": {
+  "command": "/Users/zackscriven/.nvm/versions/node/v25.9.0/bin/node",
+  "args": ["/Volumes/Extreme SSD/MCP_Servers/lemma_docs_mcp/dist/index.js"]
+}</pre>
+  <p class="sub" style="margin-top:10px">No env needed — the corpus root defaults to <code>PPC/Product/PracticeOS/Lemma/docs</code>; override with <code>LEMMA_DOCS_CORPUS_ROOT</code>. Restart Claude Desktop after editing.</p>
+</section>
+
+<section>
+  <h2>Design decisions</h2>
+  <ul class="notes">
+    <li><b>Same architecture as its siblings</b> (whop_docs_mcp, stedi_docs_mcp, ghl_docs_mcp, elevenlabs_docs_mcp, fullscript_docs_mcp): stdio, two read-only tools, in-memory index, fixture + wire-protocol test suites.</li>
+    <li><b>Filename-prefix routing.</b> The Lemma corpus is flat (<code>lemma-docs-&lt;section&gt;-…</code>): quickstart → getting-started; changelog/roadmap → product-updates; guides-* → guides.</li>
+    <li><b>Honest about coverage.</b> The 8-page corpus is everything Lemma exports as markdown; empty-result guidance and tool descriptions name the missing sections explicitly so agents don't hallucinate banking-operations answers.</li>
+    <li><b>Docs-server, not live-server.</b> Look things up here; any live Lemma/banking integration is a separate, write-gated decision — this server can never move money.</li>
+    <li><b>Content licensing.</b> Code only is distributable; the corpus is © Lemma, stays local, and redistribution permission is an unconfirmed placeholder — see NOTICE.md before publishing anything.</li>
+    <li><b>Corpus refresh.</b> Re-download any page as raw markdown from <code>getlemma.com/docs/&lt;path&gt;.md</code>; the index rebuilds on next server start. The changelog/roadmap pages keep the corpus current with weekly releases.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Verify locally</h2>
+  <pre>npm run dry-run          <span class="c"># index stats: 8 docs → 61 chunks</span>
+npm run query -- "how does the deposit bonus accrue"
+npm run test             <span class="c"># assertions against the real corpus</span>
+npm run test:fixture     <span class="c"># 35-assertion behavior suite, runs anywhere</span>
+npm run smoke            <span class="c"># end-to-end MCP wire-protocol test (17 checks)</span></pre>
+</section>
+
+<footer>PRACTICEOS · PRIVATE PRACTICE COLLECTIVE LLC · LEMMA_DOCS_MCP v0.1.0 · 2026-08-26 · CODE ONLY — NO LEMMA CONTENT DISTRIBUTED</footer>
+</div>
+</body>
+</html>

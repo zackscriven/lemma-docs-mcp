@@ -40,8 +40,8 @@ npm run smoke            # end-to-end MCP wire-protocol test (17 checks)
 
 ```json
 "lemma-docs": {
-  "command": "/Users/zackscriven/.nvm/versions/node/v25.9.0/bin/node",
-  "args": ["/Volumes/Extreme SSD/MCP_Servers/lemma_docs_mcp/dist/index.js"]
+  "command": "/absolute/path/to/node",
+  "args": ["/absolute/path/to/lemma_docs_mcp/dist/index.js"]
 }
 ```
 

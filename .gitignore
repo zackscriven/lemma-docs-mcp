@@ -4,3 +4,8 @@ dist/
 .env
 .DS_Store
 ._*
+
+# Zack's personal local-machine helper -- hardcodes his node path and
+# registers sibling repos (whop_docs_mcp, plaud_docs_mcp) that aren't part
+# of this repo. Not relevant to external users of this package.
+scripts/register-clients.sh
